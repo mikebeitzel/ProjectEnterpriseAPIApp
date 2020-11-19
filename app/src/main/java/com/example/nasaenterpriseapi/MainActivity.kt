@@ -11,6 +11,7 @@ import com.example.nasaenterpriseapi.Retrofit.ApiInterface
 import com.example.nasaenterpriseapi.Retrofit.RetrofitClient.retrofit
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
 import kotlin.collections.ArrayList
 
 
@@ -31,21 +32,30 @@ class MainActivity : AppCompatActivity() {
             call.enqueue(object : Callback<NasaJsonResponse> {
                 override fun onResponse(
                     call: Call<NasaJsonResponse>,
-                    response: retrofit2.Response<NasaJsonResponse>
+                    response: Response<NasaJsonResponse>
                 ) {
                     if (response.isSuccessful) {
 //                        Log.i("TAG", "==success==>" + nasaImageAndVideoSearch.body())
                         nasaResponseBodyJava = response.body()!!
+                        var model = response.body()
                         var items: List<Items>
-                        var data: List<Data>
                         items = nasaResponseBodyJava.collection.items
 
-
                         for(x in 0..items.size){
+//                            Log.i("===Debug Response===", "$items")
+                            Log.i("===DEBUG DATA RESPONSE HERE===", items[x].data[x].title,
+//                                    + "\n" +
+//                                    items[x].data.get(x).description + "\n" +
+//                                    items[x].data.get(x).center + "\n" +
+//                                    items[x].data.get(x).dateCreated + "\n" +
+//                                    items[x].data.get(x).mediaType + "\n" +
+//                                    items[x].data.get(x).keywords + "\n" +
+//                                    items[x].data.get(x).nasaId + "\n"
+                            )
 
                         }
 
-                        Log.i("===Debug Response===", "$items")
+
                     }
                 }
 
