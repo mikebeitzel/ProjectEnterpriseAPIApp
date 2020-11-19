@@ -1,7 +1,6 @@
 package com.example.nasaenterpriseapi.Retrofit;
 
-
-import com.example.nasaenterpriseapi.Model.NasaImageAndVideoSearch;
+import com.example.nasaenterpriseapi.Model.NasaJsonResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -9,6 +8,6 @@ import retrofit2.http.GET;
 public interface ApiInterface {
 
     @GET("search?q=cough")
-    Call<NasaImageAndVideoSearch> getData();
+    Call<NasaJsonResponse> getData();
 
 }
