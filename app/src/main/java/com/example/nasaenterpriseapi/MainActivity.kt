@@ -41,9 +41,8 @@ class MainActivity : AppCompatActivity() {
                         var items: List<Items>
                         items = nasaResponseBodyJava.collection.items
 
-                        for(x in 0..items.size){
-//                            Log.i("===Debug Response===", "$items")
-                            Log.i("===DEBUG DATA RESPONSE HERE===", items[x].data[x].title,
+                        for(x in 0 until items.size){
+                            Log.i("===DEBUG DATA RESPONSE HERE===", items[x].data[0].title,
 //                                    + "\n" +
 //                                    items[x].data.get(x).description + "\n" +
 //                                    items[x].data.get(x).center + "\n" +
