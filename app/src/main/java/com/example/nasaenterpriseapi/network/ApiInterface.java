@@ -1,6 +1,6 @@
-package com.example.nasaenterpriseapi.Retrofit;
+package com.example.nasaenterpriseapi.network;
 
-import com.example.nasaenterpriseapi.Model.NasaJsonResponse;
+import com.example.nasaenterpriseapi.model.NasaJsonResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi.Model;
+package com.example.nasaenterpriseapi.model;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
