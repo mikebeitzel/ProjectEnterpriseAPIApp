@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi.network;
+package com.example.nasaenterpriseapi.network.api;
 
 import com.example.nasaenterpriseapi.model.NasaJsonResponse;
 
