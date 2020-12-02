@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         textViewResult = findViewById(R.id.text_view_result)
 
-//        getSearch()
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-
                 return false
             }
         })
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<Nasa_Images_Base>
                 ) {
                 if (response.isSuccessful) {
-
+                    textViewResult?.text = ""
                     nasa_images_base = response.body()!!
                     var items: List<com.example.nasaenterpriseapi.model.NasaImages.Items>
                     items = nasa_images_base!!.collection!!.items
