@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                         imagesFragment.mTitle = items[x].data[0].title
                         imagesFragment.mDescription = items[x].data[0].description
                         imagesFragment.mPhotographer = items[x].data[0].photographer
+                        imagesFragment.mDate = items[x].data[0].date_created
                         imagesFragment.mImageURL = items[x].links[0].href
                         images!!.add(imagesFragment)
                     }

@@ -1,6 +1,7 @@
 package com.example.nasaenterpriseapi.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaImages.ImagesModel
 import com.squareup.picasso.Picasso
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+
 
 class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     var inflater: LayoutInflater
@@ -21,10 +25,18 @@ class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : Recyc
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val dateInString = images[position].mDate
+        val formattedDate = OffsetDateTime.parse(images[position].mDate).format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+        println(formattedDate)
+
+        Log.i("=== Created on Date ===", "$dateInString")
+
         // bind the data
         holder.title.text = images[position].mTitle
         holder.photographer.text = images[position].mPhotographer
-        holder.description.text = images[position].mDescription
+        holder.date.text = formattedDate
+//        holder.description.text = images[position].mDescription
         Picasso.get().load(images[position].mImageURL).into(holder.imageURL)
     }
 
@@ -34,13 +46,18 @@ class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : Recyc
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.nasa_image_cardview_title)
-        var description: TextView = itemView.findViewById(R.id.nasa_image_cardview_description)
+//        var description: TextView = itemView.findViewById(R.id.nasa_image_cardview_description)
         var photographer: TextView = itemView.findViewById(R.id.nasa_image_cardview_photographer)
         var imageURL: ImageView = itemView.findViewById(R.id.nasa_image_cardview_image)
+        var date: TextView = itemView.findViewById(R.id.date_created)
 
         init {
             // handle onClick
-            itemView.setOnClickListener { v -> Toast.makeText(v.context, "Do Something With this Click", Toast.LENGTH_SHORT).show() }
+            itemView.setOnClickListener { v -> Toast.makeText(
+                v.context,
+                "Do Something With this Click",
+                Toast.LENGTH_SHORT
+            ).show() }
         }
     }
 
