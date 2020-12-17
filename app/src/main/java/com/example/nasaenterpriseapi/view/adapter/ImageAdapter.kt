@@ -1,6 +1,7 @@
 package com.example.nasaenterpriseapi.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +9,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.nasaenterpriseapi.ImageDisplayActivity
 import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaImages.ImagesModel
-import com.squareup.picasso.Picasso
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 
-class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(private val context: Context, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+
     var inflater: LayoutInflater
     var images: List<ImagesModel>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = inflater.inflate(R.layout.custom_list_layout, parent, false)
         return ViewHolder(view)
@@ -36,8 +41,15 @@ class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : Recyc
         holder.title.text = images[position].mTitle
         holder.photographer.text = images[position].mPhotographer
         holder.date.text = formattedDate
-//        holder.description.text = images[position].mDescription
-        Picasso.get().load(images[position].mImageURL).into(holder.imageURL)
+        Glide.with(context)
+            .load(images[position].mImageURL)
+            .into(holder.imageURL)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(this@ImageAdapter.context, ImageDisplayActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -55,14 +67,15 @@ class ImageAdapter(ctx: Context?, imageFragmentsList: List<ImagesModel>) : Recyc
             // handle onClick
             itemView.setOnClickListener { v -> Toast.makeText(
                 v.context,
-                "Do Something With this Click",
+                "You clicked $adapterPosition",
                 Toast.LENGTH_SHORT
-            ).show() }
+            ).show()
+            }
         }
     }
 
     init {
-        inflater = LayoutInflater.from(ctx)
+        inflater = LayoutInflater.from(context)
         this.images = imageFragmentsList
     }
 }
