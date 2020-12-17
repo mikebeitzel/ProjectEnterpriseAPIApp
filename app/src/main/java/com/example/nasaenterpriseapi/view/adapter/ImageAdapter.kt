@@ -46,18 +46,20 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
         holder.date.text = formattedDate
 
         Glide.with(context)
-            .load(images[position].mImageURL)
+            .load(images[position].mThumbnailImage)
             .into(holder.imageURL)
         holder.itemView.setOnClickListener {
             val intent = Intent(this@ImageAdapter.context, ImageDisplayActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.putExtra("title", holder.title.text)
+            intent.putExtra("media_type", images[position].mMediaType)
+            intent.putExtra("center", images[position].mCenter)
+            intent.putExtra("nasa_id", images[position].mNasaId)
             intent.putExtra("description", images[position].mDescription)
-            intent.putExtra("date", images[position].mDate)
             intent.putExtra("photographer", images[position].mPhotographer)
-//            intent.putExtra("location", images[position].location)
-//            intent.putExtra("keywords", holder.title.text)
-//            intent.putExtra("image", holder.title.text)
+            intent.putExtra("keywords", images[position].mKeywords)
+            intent.putExtra("title", images[position].mDate)
+            intent.putExtra("date", images[position].mDate)
+            intent.putExtra("thumbnail", images[position].mThumbnailImage)
 
             context.startActivity(intent)
         }
@@ -70,7 +72,6 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var title: TextView = itemView.findViewById(R.id.nasa_image_detail_title)
-//        var description: TextView = itemView.findViewById(R.id.nasa_image_cardview_description)
         var photographer: TextView = itemView.findViewById(R.id.nasa_image_detail_photographer)
         var imageURL: ImageView = itemView.findViewById(R.id.nasa_image_cardview_image)
         var date: TextView = itemView.findViewById(R.id.date_created)

@@ -82,14 +82,20 @@ class MainActivity : AppCompatActivity() {
                     items = nasa_images_base!!.collection!!.items
                     images?.clear()
 
-                    // This loop takes the json data and attaches it to the cardview
+                    // This loop takes the json data return data and creates a list in the ImagesModel
                     for (x in 0 until items.size) {
                         val imagesFragment = ImagesModel()
-                        imagesFragment.mTitle = items[x].data[0].title
+                        imagesFragment.mMediaType = items[x].data[0].media_type
+                        imagesFragment.mCenter = items[x].data[0].center
+                        imagesFragment.mNasaId = items[x].data[0].nasa_id
                         imagesFragment.mDescription = items[x].data[0].description
                         imagesFragment.mPhotographer = items[x].data[0].photographer
+                        // Check to see if by creating this into a list of keywords I can have individual search buttons
+                        imagesFragment.mKeywords = items[x].data[0].keywordswords.toString()
+                        imagesFragment.mTitle = items[x].data[0].title
                         imagesFragment.mDate = items[x].data[0].date_created
-                        imagesFragment.mImageURL = items[x].links[0].href
+
+                        imagesFragment.mThumbnailImage = items[x].links[0].href
                         images!!.add(imagesFragment)
                     }
                     recyclerView!!.layoutManager = LinearLayoutManager(applicationContext)
