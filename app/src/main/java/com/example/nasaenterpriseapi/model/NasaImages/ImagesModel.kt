@@ -8,6 +8,7 @@ class ImagesModel {
     var mKeywords: String? = null
     var mNasaId: String? = null
     var mDate: String? = null
+    var mLocation: String? = null
 
     constructor() {}
     constructor(title: String?, description: String?, photographer: String?,

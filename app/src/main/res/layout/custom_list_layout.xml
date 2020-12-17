@@ -33,7 +33,7 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_title"
+                android:id="@+id/nasa_image_detail_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -49,7 +49,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_photographer"
+                android:id="@+id/nasa_image_detail_photographer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/nasa_image_cardview_image"
-                app:layout_constraintTop_toBottomOf="@+id/nasa_image_cardview_title" />
+                app:layout_constraintTop_toBottomOf="@+id/nasa_image_detail_title" />
 
             <TextView
                 android:id="@+id/date_created"
@@ -69,7 +69,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/nasa_image_cardview_image"
                 tools:layout_editor_absoluteY="51dp"
-                app:layout_constraintTop_toBottomOf="@+id/nasa_image_cardview_photographer"/>
+                app:layout_constraintTop_toBottomOf="@+id/nasa_image_detail_photographer"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

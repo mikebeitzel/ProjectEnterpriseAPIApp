@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.nasaenterpriseapi.ImageDisplayActivity
@@ -32,7 +31,11 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val dateInString = images[position].mDate
-        val formattedDate = OffsetDateTime.parse(images[position].mDate).format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+        val formattedDate = OffsetDateTime.parse(images[position].mDate).format(
+            DateTimeFormatter.ofPattern(
+                "MMM dd, yyyy"
+            )
+        )
         println(formattedDate)
 
         Log.i("=== Created on Date ===", "$dateInString")
@@ -41,12 +44,21 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
         holder.title.text = images[position].mTitle
         holder.photographer.text = images[position].mPhotographer
         holder.date.text = formattedDate
+
         Glide.with(context)
             .load(images[position].mImageURL)
             .into(holder.imageURL)
         holder.itemView.setOnClickListener {
             val intent = Intent(this@ImageAdapter.context, ImageDisplayActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("title", holder.title.text)
+            intent.putExtra("description", images[position].mDescription)
+            intent.putExtra("date", images[position].mDate)
+            intent.putExtra("photographer", images[position].mPhotographer)
+//            intent.putExtra("location", images[position].location)
+//            intent.putExtra("keywords", holder.title.text)
+//            intent.putExtra("image", holder.title.text)
+
             context.startActivity(intent)
         }
 
@@ -57,9 +69,9 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView = itemView.findViewById(R.id.nasa_image_cardview_title)
+        var title: TextView = itemView.findViewById(R.id.nasa_image_detail_title)
 //        var description: TextView = itemView.findViewById(R.id.nasa_image_cardview_description)
-        var photographer: TextView = itemView.findViewById(R.id.nasa_image_cardview_photographer)
+        var photographer: TextView = itemView.findViewById(R.id.nasa_image_detail_photographer)
         var imageURL: ImageView = itemView.findViewById(R.id.nasa_image_cardview_image)
         var date: TextView = itemView.findViewById(R.id.date_created)
 

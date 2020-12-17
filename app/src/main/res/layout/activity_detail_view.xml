@@ -24,7 +24,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/nasa_imageView"
+                android:id="@+id/nasa_detail_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginStart="8dp"
@@ -34,7 +34,7 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_title"
+                android:id="@+id/nasa_image_detail_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -42,71 +42,71 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nasa_imageView"
+                app:layout_constraintStart_toEndOf="@+id/nasa_detail_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_description"
+                android:id="@+id/nasa_image_detail_description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:text="Sample Description"
-                app:layout_constraintBottom_toTopOf="@+id/nasa_image_cardview_keywords"
+                app:layout_constraintBottom_toTopOf="@+id/nasa_image_detail_keywords"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nasa_imageView"
-                app:layout_constraintTop_toBottomOf="@id/nasa_image_cardview_title" />
+                app:layout_constraintStart_toEndOf="@+id/nasa_detail_image"
+                app:layout_constraintTop_toBottomOf="@id/nasa_image_detail_title" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_photographer"
+                android:id="@+id/nasa_image_detail_photographer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="Sample Photographer"
-                app:layout_constraintEnd_toStartOf="@+id/nasa_image_cardview_description"
+                app:layout_constraintEnd_toStartOf="@+id/nasa_image_detail_description"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nasa_imageView" />
+                app:layout_constraintTop_toBottomOf="@id/nasa_detail_image" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_location"
+                android:id="@+id/nasa_image_detail_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Sample Location"
-                app:layout_constraintEnd_toStartOf="@+id/nasa_image_cardview_keywords"
+                app:layout_constraintEnd_toStartOf="@+id/nasa_image_detail_keywords"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nasa_image_cardview_photographer" />
+                app:layout_constraintTop_toBottomOf="@id/nasa_image_detail_photographer" />
 
             <TextView
-                android:id="@+id/nasa_image_cardview_keywords"
+                android:id="@+id/nasa_image_detail_keywords"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:text="Sample Keywords"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nasa_image_cardview_location" />
+                app:layout_constraintStart_toEndOf="@+id/nasa_image_detail_location" />
 
             <ImageView
-                android:id="@+id/nasa_imageView_media_type"
+                android:id="@+id/nasa_image_detail_media_type"
                 android:layout_width="54dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/nasa_imageView"
+                app:layout_constraintBottom_toTopOf="@+id/nasa_detail_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/nasa_imageView_date_created"
+                android:id="@+id/nasa_image_detail_date_created"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="6dp"
                 android:text="Sample Date"
-                app:layout_constraintBottom_toTopOf="@+id/nasa_imageView"
-                app:layout_constraintEnd_toStartOf="@+id/nasa_image_cardview_title"
-                app:layout_constraintStart_toEndOf="@+id/nasa_imageView_media_type" />
+                app:layout_constraintBottom_toTopOf="@+id/nasa_detail_image"
+                app:layout_constraintEnd_toStartOf="@+id/nasa_image_detail_title"
+                app:layout_constraintStart_toEndOf="@+id/nasa_image_detail_media_type" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

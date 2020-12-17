@@ -24,6 +24,7 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity() {
 
     var images: MutableList<ImagesModel>? = null
+
     var recyclerView: RecyclerView? = null
     private var nasa_images_base: Nasa_Images_Base? = null
     lateinit var searchView: SearchView
