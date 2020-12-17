@@ -2,6 +2,7 @@ package com.example.nasaenterpriseapi.view.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -60,10 +61,10 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
             intent.putExtra("title", images[position].mDate)
             intent.putExtra("date", images[position].mDate)
             intent.putExtra("thumbnail", images[position].mThumbnailImage)
+//            intent.setAction("href", images[position].mHref)
 
             context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int {

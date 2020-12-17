@@ -14,7 +14,7 @@ class ImageDisplayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_view)
 
-        val media_type_intent: String? = intent.getStringExtra("media_type")
+//        val media_type_intent: String? = intent.getStringExtra("media_type")
         val center_intent: String? = intent.getStringExtra("center")
         val nasa_id_intent: String? = intent.getStringExtra("nasa_id")
         val description_intent: String? = intent.getStringExtra("description")
