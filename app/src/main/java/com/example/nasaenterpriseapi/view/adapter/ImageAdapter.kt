@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.nasaenterpriseapi.ImageDisplayActivity
 import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaImages.ImagesModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.util.regex.Matcher
 
 
 class ImageAdapter(private val context: Context, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
@@ -31,15 +36,11 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val dateInString = images[position].mDate
         val formattedDate = OffsetDateTime.parse(images[position].mDate).format(
             DateTimeFormatter.ofPattern(
                 "MMM dd, yyyy"
             )
         )
-        println(formattedDate)
-
-        Log.i("=== Created on Date ===", "$dateInString")
 
         // bind the data
         holder.title.text = images[position].mTitle
@@ -51,6 +52,8 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
             .into(holder.imageURL)
         holder.itemView.setOnClickListener {
             val intent = Intent(this@ImageAdapter.context, ImageDisplayActivity::class.java)
+            val url = images[position].mHrefLink
+
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("media_type", images[position].mMediaType)
             intent.putExtra("center", images[position].mCenter)
@@ -61,7 +64,9 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
             intent.putExtra("title", images[position].mDate)
             intent.putExtra("date", images[position].mDate)
             intent.putExtra("thumbnail", images[position].mThumbnailImage)
-//            intent.setAction("href", images[position].mHref)
+
+
+//            uriParse.putExtra("href", images[position].mHref)
 
             context.startActivity(intent)
         }

@@ -8,29 +8,33 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.nasaenterpriseapi.model.NasaImages.HrefLinks
 import com.example.nasaenterpriseapi.model.NasaImages.ImagesModel
 import com.example.nasaenterpriseapi.model.NasaImages.Nasa_Images_Base
 import com.example.nasaenterpriseapi.network.api.ImagesInterface
-import com.example.nasaenterpriseapi.network.api.NasaImageClient
 import com.example.nasaenterpriseapi.network.api.NasaImageClient.retrofit
 import com.example.nasaenterpriseapi.view.adapter.ImageAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image_display.*
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.*
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    var jsonResponses: List<String> = ArrayList()
+
     var image_data: MutableList<ImagesModel>? = null
-    var hrefLinks: MutableList<HrefLinks>? = null
+    var hrefLinks: List<HrefLinks>? = null
 
     var recyclerView: RecyclerView? = null
     private var nasa_images_base: Nasa_Images_Base? = null
@@ -43,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.image_list_recycler_view)
         image_data = ArrayList()
+        hrefLinks = ArrayList()
 
         }
 
@@ -94,6 +99,8 @@ class MainActivity : AppCompatActivity() {
                     // This loop takes the json data return data and creates a list in the ImagesModel
                     for (x in 0 until items.size) {
                         val imagesFragment = ImagesModel()
+                        volleyGet(items[x].href)
+
                         imagesFragment.mMediaType = items[x].data[0].media_type
                         imagesFragment.mCenter = items[x].data[0].center
                         imagesFragment.mNasaId = items[x].data[0].nasa_id
@@ -105,15 +112,7 @@ class MainActivity : AppCompatActivity() {
                         imagesFragment.mDate = items[x].data[0].date_created
                         imagesFragment.mThumbnailImage = items[x].links[0].href
 
-                        imagesFragment.mHref = items[x].href
-
-//                        val href = items[x].href
-//                        hrefLinks
-////                        val json = readJsonFromUrl(href)
-//                        val response = Gson().toJson(href)
-
-
-                        Log.i("=== Json Return? === ", "$response")
+                        imagesFragment.mHrefLink = items[x].href
 
                         image_data!!.add(imagesFragment)
                     }
@@ -130,4 +129,30 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun volleyGet(urlHref: String){
+
+        val jsonResponses: MutableList<String> = ArrayList()
+        val requestQueue = Volley.newRequestQueue(this)
+        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlHref, null, object : com.android.volley.Response.Listener<JSONObject?> {
+                    override fun onResponse(response: JSONObject?) {
+                        try {
+                            val jsonArray = response?.getJSONArray("")
+                            for (i in 0 until jsonArray!!.length()) {
+                                val jsonObject = jsonArray.getJSONObject(i)
+                                val data = jsonObject.getString("")
+                                Log.i("=== Possible Json Response ===", "$data")
+                                jsonResponses.add(data)
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                    }
+                },
+                object : com.android.volley.Response.ErrorListener {
+                    override fun onErrorResponse(error: VolleyError) {
+                        error.printStackTrace()
+                    }
+                })
+        requestQueue.add(jsonObjectRequest)
+    }
 }
