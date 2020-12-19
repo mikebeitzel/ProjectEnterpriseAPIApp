@@ -1,10 +1,11 @@
-package com.example.nasaenterpriseapi.model.NasaImages
+package com.example.nasaenterpriseapi.model.NasaHrefResponse
 
-class HrefLinks {
+class HrefLinksModel {
     var mHref: String? = null
-    var mHrefLink: String? = null
     var mOriginalImage: String? = null
     var mLargeImage: String? = null
     var mMediumImage: String? = null
     var mSmallImage: String? = null
+    var mThumbImage: String? = null
+    var mMetadata: String? = null
 }

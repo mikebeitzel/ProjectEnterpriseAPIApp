@@ -8,20 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import com.example.nasaenterpriseapi.model.NasaImages.HrefLinks
-import com.example.nasaenterpriseapi.model.NasaImages.ImagesModel
-import com.example.nasaenterpriseapi.model.NasaImages.Nasa_Images_Base
+import com.example.nasaenterpriseapi.model.NasaQueryResponse.ImagesModel
+import com.example.nasaenterpriseapi.model.NasaQueryResponse.Nasa_Images_Base
 import com.example.nasaenterpriseapi.network.api.ImagesInterface
 import com.example.nasaenterpriseapi.network.api.NasaImageClient.retrofit
 import com.example.nasaenterpriseapi.view.adapter.ImageAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image_display.*
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,10 +24,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var jsonResponses: List<String> = ArrayList()
-
     var image_data: MutableList<ImagesModel>? = null
-    var hrefLinks: List<HrefLinks>? = null
 
     var recyclerView: RecyclerView? = null
     private var nasa_images_base: Nasa_Images_Base? = null
@@ -47,8 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.image_list_recycler_view)
         image_data = ArrayList()
-        hrefLinks = ArrayList()
-
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,33 +76,33 @@ class MainActivity : AppCompatActivity() {
                 response: Response<Nasa_Images_Base>
             ) {
                 if (response.isSuccessful) {
-                    Log.i("===DEBUG DATA RESPONSE HERE===", Gson().toJson(response.body()))
+//                    Log.i("===DEBUG DATA RESPONSE HERE===", Gson().toJson(response.body()))
                     nasa_images_base = response.body()!!
-
-                    var items: List<com.example.nasaenterpriseapi.model.NasaImages.Items>
+                    var items: List<com.example.nasaenterpriseapi.model.NasaQueryResponse.Items>
                     items = nasa_images_base!!.collection!!.items
 
                     image_data?.clear()
 
                     // This loop takes the json data return data and creates a list in the ImagesModel
                     for (x in 0 until items.size) {
-                        val imagesFragment = ImagesModel()
-                        volleyGet(items[x].href)
+                        val imagesModel = ImagesModel()
 
-                        imagesFragment.mMediaType = items[x].data[0].media_type
-                        imagesFragment.mCenter = items[x].data[0].center
-                        imagesFragment.mNasaId = items[x].data[0].nasa_id
-                        imagesFragment.mDescription = items[x].data[0].description
-                        imagesFragment.mPhotographer = items[x].data[0].photographer
+                        imagesModel.mMediaType = items[x].data[0].media_type
+                        imagesModel.mCenter = items[x].data[0].center
+                        imagesModel.mNasaId = items[x].data[0].nasa_id
+                        imagesModel.mDescription = items[x].data[0].description
+                        imagesModel.mPhotographer = items[x].data[0].photographer
                         // Check to see if by creating this into a list of keywords I can have individual search buttons
-                        imagesFragment.mKeywords = items[x].data[0].keywordswords.toString()
-                        imagesFragment.mTitle = items[x].data[0].title
-                        imagesFragment.mDate = items[x].data[0].date_created
-                        imagesFragment.mThumbnailImage = items[x].links[0].href
+                        imagesModel.mKeywords = items[x].data[0].keywordswords.toString()
+                        imagesModel.mTitle = items[x].data[0].title
+                        imagesModel.mDate = items[x].data[0].date_created
+                        imagesModel.mThumbnailImage = items[x].links[0].href
+                        imagesModel.mHrefLink = items[x].href
 
-                        imagesFragment.mHrefLink = items[x].href
+                        val nasa_id = items[x].data[0].nasa_id
+                        Log.i("=== Nasa Id ===", "Nasa ID is $nasa_id")
 
-                        image_data!!.add(imagesFragment)
+                        image_data!!.add(imagesModel)
                     }
                     recyclerView!!.layoutManager = LinearLayoutManager(applicationContext)
                     adapter = image_data?.let { ImageAdapter(applicationContext, it) }
@@ -127,32 +115,5 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "went wrong !", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    private fun volleyGet(urlHref: String){
-
-        val jsonResponses: MutableList<String> = ArrayList()
-        val requestQueue = Volley.newRequestQueue(this)
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, urlHref, null, object : com.android.volley.Response.Listener<JSONObject?> {
-                    override fun onResponse(response: JSONObject?) {
-                        try {
-                            val jsonArray = response?.getJSONArray("")
-                            for (i in 0 until jsonArray!!.length()) {
-                                val jsonObject = jsonArray.getJSONObject(i)
-                                val data = jsonObject.getString("")
-                                Log.i("=== Possible Json Response ===", "$data")
-                                jsonResponses.add(data)
-                            }
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                    }
-                },
-                object : com.android.volley.Response.ErrorListener {
-                    override fun onErrorResponse(error: VolleyError) {
-                        error.printStackTrace()
-                    }
-                })
-        requestQueue.add(jsonObjectRequest)
     }
 }

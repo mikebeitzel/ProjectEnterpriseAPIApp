@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi.model.NasaImages
+package com.example.nasaenterpriseapi.model.NasaQueryResponse
 
 import com.google.gson.annotations.SerializedName
 
