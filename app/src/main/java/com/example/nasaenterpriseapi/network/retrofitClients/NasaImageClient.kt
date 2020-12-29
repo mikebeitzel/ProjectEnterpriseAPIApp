@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi.network.api
+package com.example.nasaenterpriseapi.network.retrofitClients
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

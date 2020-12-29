@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi
+package com.example.nasaenterpriseapi.view.UI
 
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaQueryResponse.ImagesModel
 import com.example.nasaenterpriseapi.model.NasaQueryResponse.Nasa_Images_Base
-import com.example.nasaenterpriseapi.network.api.ImagesInterface
-import com.example.nasaenterpriseapi.network.api.NasaImageClient.retrofit
-import com.example.nasaenterpriseapi.view.adapter.ImageAdapter
-import com.google.gson.Gson
+import com.example.nasaenterpriseapi.network.interfaces.ImagesInterface
+import com.example.nasaenterpriseapi.network.retrofitClients.NasaImageClient.retrofit
+import com.example.nasaenterpriseapi.view.adapter.RecyclerViewSearchAdapter
 import kotlinx.android.synthetic.main.activity_image_display.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
     private var nasa_images_base: Nasa_Images_Base? = null
     lateinit var searchView: SearchView
-    var adapter: ImageAdapter? = null
+    var adapter: RecyclerViewSearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                 response: Response<Nasa_Images_Base>
             ) {
                 if (response.isSuccessful) {
-//                    Log.i("===DEBUG DATA RESPONSE HERE===", Gson().toJson(response.body()))
                     nasa_images_base = response.body()!!
                     var items: List<com.example.nasaenterpriseapi.model.NasaQueryResponse.Items>
                     items = nasa_images_base!!.collection!!.items
@@ -105,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                         image_data!!.add(imagesModel)
                     }
                     recyclerView!!.layoutManager = LinearLayoutManager(applicationContext)
-                    adapter = image_data?.let { ImageAdapter(applicationContext, it) }
+                    adapter = image_data?.let { RecyclerViewSearchAdapter(applicationContext, it) }
                     recyclerView!!.adapter = adapter
                 }
             }

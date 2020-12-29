@@ -9,14 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.nasaenterpriseapi.ImageDisplayActivity
 import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaQueryResponse.ImagesModel
+import com.example.nasaenterpriseapi.view.UI.ImageDisplayActivity
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 
-class ImageAdapter(private val context: Context, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class RecyclerViewSearchAdapter(private val context: Context, imageFragmentsList: List<ImagesModel>) : RecyclerView.Adapter<RecyclerViewSearchAdapter.ViewHolder>() {
 
     var inflater: LayoutInflater
     var images: List<ImagesModel>
@@ -43,7 +43,7 @@ class ImageAdapter(private val context: Context, imageFragmentsList: List<Images
             .load(images[position].mThumbnailImage)
             .into(holder.imageURL)
         holder.itemView.setOnClickListener {
-            val intent = Intent(this@ImageAdapter.context, ImageDisplayActivity::class.java)
+            val intent = Intent(this@RecyclerViewSearchAdapter.context, ImageDisplayActivity::class.java)
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("media_type", images[position].mMediaType)

@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi.network.api
+package com.example.nasaenterpriseapi.network.interfaces
 
 import com.example.nasaenterpriseapi.model.NasaQueryResponse.Nasa_Images_Base
 import retrofit2.Call

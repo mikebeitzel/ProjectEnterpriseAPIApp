@@ -1,4 +1,4 @@
-package com.example.nasaenterpriseapi
+package com.example.nasaenterpriseapi.view.UI
 
 import android.os.Bundle
 import android.util.Log
@@ -7,11 +7,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.nasaenterpriseapi.R
 import com.example.nasaenterpriseapi.model.NasaHrefResponse.HrefLinksModel
 import com.example.nasaenterpriseapi.model.NasaHrefResponse.Item
 import com.example.nasaenterpriseapi.model.NasaHrefResponse.Nasa_Href_Base
-import com.example.nasaenterpriseapi.network.api.HrefLinksInterface
-import com.example.nasaenterpriseapi.view.adapter.HrefAdapter.retrofit
+import com.example.nasaenterpriseapi.network.interfaces.HrefLinksInterface
+import com.example.nasaenterpriseapi.network.retrofitClients.HrefClient.retrofit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

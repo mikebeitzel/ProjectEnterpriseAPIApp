@@ -1,12 +1,10 @@
-package com.example.nasaenterpriseapi.network.api
+package com.example.nasaenterpriseapi.network.retrofitClients
 
-import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.ArrayList
 
-class OnClickHrefGet() {
+object HrefClient {
 
     private val BASE_URL = "https://images-api.nasa.gov/asset/"
 
@@ -22,4 +20,5 @@ class OnClickHrefGet() {
             return field
         }
         private set
+
 }
