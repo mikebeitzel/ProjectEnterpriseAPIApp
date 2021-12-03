@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                         imagesModel.mNasaId = items[x].data[0].nasa_id
                         imagesModel.mDescription = items[x].data[0].description
                         imagesModel.mPhotographer = items[x].data[0].photographer
+
                         // Check to see if by creating this into a list of keywords I can have individual search buttons
                         imagesModel.mKeywords = items[x].data[0].keywordswords.toString()
                         imagesModel.mTitle = items[x].data[0].title
